@@ -1,12 +1,10 @@
 Art Games
 
-Artmash: Two artworks will be displayed.  Pick the one you like most.  Discover new art!
-
-
+Art Mash: Discover art from museums around the world with one simple question: which one do you like better?
 
 ---
 
-Originally developed at the Smithsonian American Art Museum Luce Foundation Center Hackathon in November 2013
+I originally developed the Art Mash at the Smithsonian American Art Museum Luce Foundation Center Hackathon in November 2013
 That code lives here: https://github.com/wesleycho/saam/tree/master/cherrypy
 
-Adapted to use additional APIs from other museums
+I've since ported it over to django and adapted it to use additional APIs from other museums
