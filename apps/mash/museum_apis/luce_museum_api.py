@@ -40,7 +40,7 @@ class LuceMuseumApi(BaseMuseumApi):
                 'external_url': response['response']['docs'][0]['descriptiveNonRepeating']['record_link'],
                 'source': response['response']['docs'][0]['freetext']['dataSource'][0]['content'],
                 'artist': response['response']['docs'][0]['freetext']['name'][0]['content'],
-                'type_': response['response']['docs'][0]['freetext']['objectType'][0]['content'],
+                'art_type': response['response']['docs'][0]['freetext']['objectType'][0]['content'],
                 'description': response['response']['docs'][0]['freetext']['physicalDescription'][0]['content'],
                 'date': response['response']['docs'][0]['freetext']['date'][0]['content'],
             }

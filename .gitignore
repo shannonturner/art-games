@@ -4,6 +4,8 @@ lib/
 include/
 bootstrap/
 
+apps/mash/museum_apis/art_credentials.py
+
 #################
 ## Eclipse
 #################

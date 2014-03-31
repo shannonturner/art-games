@@ -1,11 +1,12 @@
 from django.db import models
+import datetime
 
 class Artwork(models.Model):
     
     title = models.CharField(max_length=255, null=True, blank=True)
     artist = models.CharField(max_length=255, null=True, blank=True)
     date = models.CharField(max_length=255, null=True, blank=True) # Most dates would be year-only or in an incorrect format for DateField
-    type_ = models.CharField(max_length=255, null=True, blank=True)
+    art_type = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     source = models.CharField(max_length=255, null=True, blank=True)
 
@@ -24,8 +25,8 @@ class Vote(models.Model):
 
     " Each time two artworks are lined up side by side, both the winning and losing artwork will be saved. "
     
-    won = models.ForeignKey(Artwork)
-    lost = models.ForeignKey(Artwork)
+    won = models.ForeignKey(Artwork, related_name='won')
+    lost = models.ForeignKey(Artwork, related_name='lost')
 
     # Auto-generated timestamps
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
