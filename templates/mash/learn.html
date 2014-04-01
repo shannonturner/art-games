@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{# Art Games Template: Learn #}
+
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover art from museums around the world with one simple question: which one do you like better?">
+
+    <!-- Bootstrap -->
+    <link href="http://shannonvturner.com/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title>Learn about this art</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Quintessential' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="http://shannonvturner.com/css/art_games.css">
+
+
+  </head>
+
+<body>
+
+<h2>Learn about this art</h2>
+
+    <div class="col-lg-6">
+
+        {% if artwork.0.external_url %}
+            <a href="{{ artwork.0.external_url }}" target="_blank">
+        {% endif %}
+        
+        <img src="{{ artwork.0.image_url }}" alt="{{ artwork.0.title }}" title="{{ artwork.0.title }}" id="img_left">
+
+        {% if artwork.0.external_url %}
+            </a>
+        {% endif %}
+
+        <table>
+
+        {% for key, value in artwork.0.items %}
+
+            {% if key in display_fields %}
+
+            <tr>
+                <td> {{ key }}: </td>
+                <td> {{ value }} </td>
+            </tr>
+
+            {% endif %}
+
+        {% endfor %}
+
+        </table>
+      
+    </div>
+
+    <div class="col-lg-6">
+
+        {% if artwork.1.external_url %}
+            <a href="{{ artwork.1.external_url }}" target="_blank">
+        {% endif %}
+        
+        <img src="{{ artwork.1.image_url }}" alt="{{ artwork.1.title }}" title="{{ artwork.1.title }}" id="img_right">
+
+        {% if artwork.1.external_url %}
+            </a>
+        {% endif %}
+
+
+        <table>
+
+        {% for key, value in artwork.1.items %}
+
+            {% if key in display_fields %}
+
+            <tr>
+                <td> {{ key }}: </td>
+                <td> {{ value }} </td>
+            </tr>
+
+            {% endif %}
+
+        {% endfor %}
+
+        </table>
+    
+    </div>
+
+
+<div class="row">
+
+    <div class="row col-lg-4 col-lg-offset-4">
+
+        <h3><a href="mash">Discover art</a></h3>
+
+    </div>
+
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://shannonvturner.com/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

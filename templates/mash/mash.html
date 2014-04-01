@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{# Art Games Template: Mash #}
+
+{# Display two artworks side by side #}
+
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover art from museums around the world with one simple question: which one do you like better?">
+
+    <!-- Bootstrap -->
+    <link href="http://shannonvturner.com/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title>Art Mash</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Quintessential' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="http://shannonvturner.com/css/art_games.css">
+
+
+  </head>
+
+<body>
+
+<h2>Click the artwork you like better.</h2>
+
+     <div class="col-lg-6">
+
+        <form id='mash_left' name='mash_left' method="post" action='mash'>
+
+            {% csrf_token %}
+
+            <input type='hidden' name='won' value="{{ art0.id }}">
+            <input type='hidden' name='lost' value="{{ art1.id }}">
+
+            <button type="submit" id="mash_left_submit" class="mash_button">
+                <img src="{{ art0.image_url }}" alt="{{ art0.title }}" title="{{ art0.title }}" id="img_left">
+            </button>
+
+        </form>
+
+   </div>
+
+    <div class="col-lg-6">
+
+        <form id='mash_right' name='mash_right' method="post" action='mash'>
+
+            {% csrf_token %}
+
+            <input type='hidden' name='won' value="{{ art1.id }}">
+            <input type='hidden' name='lost' value="{{ art0.id }}">
+
+            <button type="submit" id="mash_left_submit" class="mash_button">
+                <img src="{{ art1.image_url }}" alt="{{ art1.title }}" title="{{ art1.title }}" id="img_right">
+            </button>            
+
+        </form>
+
+    </div>
+
+<div class="row">
+
+    <div class="col-lg-6">
+
+    {# Add info about the artworks here #}
+        <p>Source: {{ art0.source }}</p>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <p>Source: {{ art1.source }}</p>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="row col-lg-4 col-lg-offset-4">
+
+        <h4><a href="learn?id1={{ art0.id }}&id2={{ art1.id }}" target="_blank">Learn more about this art</a></h4>
+        <h6><a href="mash">Skip to see new art</a></h6>
+        <h4><a href="artmash_score">View the all-time favorites</a></h4>
+
+    </div>
+
+</div>
+
+<div>
+
+    <h4>This game is open-source. The code lives here: <a href="https://github.com/shannonturner/art-games" target="_blank">https://github.com/shannonturner/art-games</a>
+
+</div> 
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://shannonvturner.com/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

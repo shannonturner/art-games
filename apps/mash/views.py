@@ -52,3 +52,39 @@ class MashView(TemplateView):
             artworks['art{0}'.format(index)] = artwork
 
         return artworks
+
+class LearnView(TemplateView):
+
+    template_name = 'mash/learn.html'
+
+    def get(self, request, **kwargs):
+
+        " Displays all of the information returned by the API for each artwork. "
+
+        art1 = request.GET.get('id1')
+        art2 = request.GET.get('id2')
+
+        try:
+            art1 = int(art1)
+        except:
+            import random
+            art1 = random.choice(Artwork.objects.all()).id
+
+        try:
+            art2 = int(art2)
+        except:
+            import random
+            art2 = random.choice(Artwork.objects.all()).id
+
+        artwork = []
+        artwork.append(vars(Artwork.objects.get(id=art1)))
+        artwork.append(vars(Artwork.objects.get(id=art2)))
+
+        display_fields = ['title', 'artist', 'date', 'art_type', 'description', 'source', 'image_url', 'external_url', 'museum', 'from_api', 'dimensions', 'credit', 'accession', 'photo_credit']
+
+        context = {
+            'artwork': artwork,
+            'display_fields': display_fields,
+        }
+
+        return render(request, self.template_name, context)
