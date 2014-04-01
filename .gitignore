@@ -2,7 +2,7 @@
 .Python
 lib/
 include/
-bootstrap/
+static/bootstrap/
 
 apps/mash/museum_apis/art_credentials.py
 

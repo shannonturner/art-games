@@ -1,14 +1,16 @@
+from apps.mash.museum_apis.base_museum_api import BaseMuseumApi
+
 class LuceMuseumApi(BaseMuseumApi):
 
     def __init__(self, **kwargs):
 
-        super(LuceMuseumApi, self).__init__(self, **kwargs)
+        super(LuceMuseumApi, self).__init__()
 
-        from apps.mash.museum_apis.art_credentials import luce_application_id, luce_username, luce_password
+        from apps.mash.museum_apis.art_credentials import luce_application_id
 
-        random_boundaries = (1, 31114)
-        api_url = 'http://edan-api.si.edu/metadataService'
-        parameters = {
+        self.random_boundaries = (1, 31114)
+        self.api_url = 'http://edan-api.si.edu/metadataService'
+        self.parameters = {
             'applicationID': luce_application_id,
             'rows': '1',
             'start': '0',
@@ -16,37 +18,73 @@ class LuceMuseumApi(BaseMuseumApi):
             'fq': 'online_media_type:Images'
         }
 
-    def get(self, **kwargs):
+    def get_artwork(self, **kwargs):
 
         import random
         import requests
         from requests.auth import HTTPBasicAuth
 
-        artwork_id = random.randint(random_boundaries[0], random_boundaries[1])
+        from apps.mash.museum_apis.art_credentials import luce_username, luce_password
+
+        artwork_id = random.randint(self.random_boundaries[0], self.random_boundaries[1])
         self.parameters['start'] = artwork_id
 
         try:
-            response = requests.get(api_url, params=parameters, auth=HTTPBasicAuth(self.luce_username, self.luce_password)).json()
-        except:
+            response = requests.get(self.api_url, params=self.parameters, auth=HTTPBasicAuth(luce_username, luce_password)).json()
+        except Exception, err:
             return False # If an error occurs here, the API is most likely no longer accepting requests
-            # In which case I may want to alert me
+
+        artwork = {}
+
+        artwork['from_api'] = 'luce'
+        artwork['external_id'] = artwork_id
 
         try:
-            artwork = {
-                'from_api': 'luce'
-                'external_id': artwork_id,
-                'image_url': response['response']['docs'][0]['descriptiveNonRepeating']['online_media']['media'][0]['content'],
-                'title': response['response']['docs'][0]['descriptiveNonRepeating']['title']['content'],
-                'external_url': response['response']['docs'][0]['descriptiveNonRepeating']['record_link'],
-                'source': response['response']['docs'][0]['freetext']['dataSource'][0]['content'],
-                'artist': response['response']['docs'][0]['freetext']['name'][0]['content'],
-                'art_type': response['response']['docs'][0]['freetext']['objectType'][0]['content'],
-                'description': response['response']['docs'][0]['freetext']['physicalDescription'][0]['content'],
-                'date': response['response']['docs'][0]['freetext']['date'][0]['content'],
-            }
+            artwork['image_url'] = response['response']['docs'][0]['descriptiveNonRepeating']['online_media']['media'][0]['content']
+        except:
+            pass
+
+        try:
+            artwork['title'] = response['response']['docs'][0]['descriptiveNonRepeating']['title']['content']
+        except:
+            pass
+
+        try:
+            artwork['external_url'] = response['response']['docs'][0]['descriptiveNonRepeating']['record_link']
+        except:
+            pass
+
+        try:
+            artwork['source'] = response['response']['docs'][0]['freetext']['dataSource'][0]['content']
+        except:
+            pass
+
+        try:
+            artwork['artist'] = response['response']['docs'][0]['freetext']['name'][0]['content']
+        except:
+            pass
+
+        try:
+            artwork['art_type'] = response['response']['docs'][0]['freetext']['objectType'][0]['content']
+        except:
+            pass
+
+        try:
+            artwork['description'] = response['response']['docs'][0]['freetext']['physicalDescription'][0]['content']
+        except:
+            pass
+
+        try:
+            artwork['date'] = response['response']['docs'][0]['freetext']['date'][0]['content']
+        except:
+            pass
+
+        try:
+            artwork_model = self.save_artwork_details(**artwork)
         except:
             return False
 
-        artwork_model = self.save_artwork_details(**artwork)
+        # Sample model instance
+        # {'created_at': datetime.datetime(2014, 3, 31, 2, 18, 46, 161577, tzinfo=<UTC>), 'art_type': u'Graphic Arts-Print', 'description': u'lithograph on paper', 'artist': u'Louis Silverstein, born New York City 1919-1994', 'museum': u'', 'title': u'Crucible, from the American Absract Artists 50th Anniversary Print Portfolio', '_state': <django.db.models.base.ModelState object at 0x1041cde90>, 'from_api': u'luce', 'updated_at': datetime.datetime(2014, 3, 31, 2, 18, 46, 161608, tzinfo=<UTC>), 'source': u'Smithsonian American Art Museum', 'image_url': u'http://americanart.si.edu/images/1987/1987.52.39_1a.jpg', 'date': u'1987', 'external_id': u'15515', 'id': 1, 'external_url': u'http://americanart.si.edu/collections/search/artwork/?id=22412'}
 
         return artwork_model

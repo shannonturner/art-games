@@ -1,3 +1,6 @@
+import random
+
+import time
 
 def get_artworks(**kwargs):
 
@@ -19,17 +22,10 @@ def get_artworks(**kwargs):
 
     for index, one_api in enumerate(both_apis):
         while both_apis[index] == one_api or not both_apis[index]:
-            both_apis[index] = self.available_apis[one_api].get_artwork()
-            debug_counter += 1
-            if debug_counter >= 3:
-                print "\n\n\n Debug counter reached 3 at line 25 \n\n\n"
-                break
+            both_apis[index] = available_apis[one_api]().get_artwork()
 
     # In the rare case of two images being identical, one_api still contains the right side's api to re-pull from
     while both_apis[0] == both_apis[1] and not both_apis[1]:
-        both_apis[1] = self.available_apis[one_api].get_artwork()
-        if debug_counter >= 4:
-            print "\n\n\n Debug counter reached 4 at line 33 \n\n\n"
-            break
+        both_apis[1] = available_apis[one_api]().get_artwork()
 
     return both_apis

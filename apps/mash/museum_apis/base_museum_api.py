@@ -19,7 +19,11 @@ class BaseMuseumApi(object):
         exists = Artwork.objects.filter(**kwargs)
 
         if exists:
-            return False
+            if len(exists) == 1:
+                return exists
+            else:
+                print "\n[INFO] Artwork may have a duplicate in the system? \n", exists, "\n"
+                return exists[0]
         else:
             artwork = Artwork(**kwargs)
             artwork.save()

@@ -2,6 +2,5 @@
 from apps.mash.museum_apis.luce_museum_api import LuceMuseumApi
 
 available_apis = {
-    'luce': LuceMuseumApi,
-    
+    'luce': LuceMuseumApi
 }
