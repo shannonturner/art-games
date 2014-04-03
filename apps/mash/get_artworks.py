@@ -21,7 +21,7 @@ def get_artworks(**kwargs):
     debug_counter = 0
 
     for index, one_api in enumerate(both_apis):
-        while both_apis[index] == one_api or not both_apis[index]:
+        while (both_apis[index] == one_api or not both_apis[index]) and len(available_apis) > 1:
             both_apis[index] = available_apis[one_api]().get_artwork()
 
     # In the rare case of two images being identical, one_api still contains the right side's api to re-pull from

@@ -17,6 +17,11 @@ class Artwork(models.Model):
 
     from_api = models.CharField(max_length=255, null=True, blank=True)
 
+    # dimensions = models.CharField(max_length=255, null=True, blank=True)
+    # credit = models.CharField(max_length=255, null=True, blank=True)
+    # accession = models.CharField(max_length=255, null=True, blank=True)
+    # photo_credit = models.CharField(max_length=255, null=True, blank=True)
+
     # Auto-generated timestamps
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())

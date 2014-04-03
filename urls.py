@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from apps.mash.views import MashView, LearnView
+from apps.mash.views import MashView, LearnView, MashFavoritesView
 
 urlpatterns = patterns('',
     # Examples:
@@ -17,4 +17,5 @@ urlpatterns = patterns('',
 
     url(r'^mash', MashView.as_view(), name='mash'),
     url(r'^learn', LearnView.as_view(), name='learn'),
+    url(r'^favorites', MashFavoritesView.as_view(), name='favorites'),
 )

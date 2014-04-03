@@ -41,7 +41,8 @@ class MashView(TemplateView):
 
         from get_artworks import get_artworks
 
-        specific_apis = request.POST.get('specific_apis') # For when user has limited the APIs to source artworks from
+        # specific_apis = request.POST.get('specific_apis') # For when user has limited the APIs to source artworks from
+        specific_apis = None
 
         if specific_apis:
             raise NotImplementedError # Not yet, that is.  TODO
@@ -84,6 +85,46 @@ class LearnView(TemplateView):
 
         context = {
             'artwork': artwork,
+            'display_fields': display_fields,
+        }
+
+        return render(request, self.template_name, context)
+
+class MashFavoritesView(TemplateView):
+
+    template_name = 'mash/favorites.html'
+
+    def get(self, request, **kwargs):
+
+        " Displays the top 10 favorites in the system. "
+
+        from django.db.models import Count
+
+        display_fields = ['title', 'artist', 'date', 'art_type', 'description', 'source', 'image_url', 'external_url', 'museum', 'from_api', 'dimensions', 'credit', 'accession', 'photo_credit']
+
+        records_by_id = Artwork.objects.values('id').annotate(Count('won__id'),Count('lost__id'))
+
+        scores = []
+        ranking = {}
+
+        for index, record in enumerate(records_by_id):
+            spread = record['won__id__count'] - record['lost__id__count']
+            records_by_id[index]['spread'] = spread * spread if spread > 0 else 0
+
+            scores.append(spread * spread)
+
+        scores = sorted(scores)[-10:] # Keep only highest ten scores
+        scores.reverse()
+
+        for record in records_by_id:
+
+            if record['spread'] in scores:
+                record['artwork'] = vars(Artwork.objects.get(id=record['id']))
+                ranking[scores.index(record['spread']) + 1] = record
+                scores[scores.index(record['spread'])] = None # This spot is no longer available
+
+        context = {
+            'ranking': ranking,
             'display_fields': display_fields,
         }
 

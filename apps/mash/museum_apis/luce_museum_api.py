@@ -1,4 +1,5 @@
 from apps.mash.museum_apis.base_museum_api import BaseMuseumApi
+from nested_access import access
 
 class LuceMuseumApi(BaseMuseumApi):
 
@@ -30,7 +31,7 @@ class LuceMuseumApi(BaseMuseumApi):
         self.parameters['start'] = artwork_id
 
         try:
-            response = requests.get(self.api_url, params=self.parameters, auth=HTTPBasicAuth(luce_username, luce_password)).json()
+            response = requests.get(self.api_url, timeout=1, params=self.parameters, auth=HTTPBasicAuth(luce_username, luce_password)).json()
         except Exception, err:
             return False # If an error occurs here, the API is most likely no longer accepting requests
 
@@ -39,45 +40,14 @@ class LuceMuseumApi(BaseMuseumApi):
         artwork['from_api'] = 'luce'
         artwork['external_id'] = artwork_id
 
-        try:
-            artwork['image_url'] = response['response']['docs'][0]['descriptiveNonRepeating']['online_media']['media'][0]['content']
-        except:
-            pass
-
-        try:
-            artwork['title'] = response['response']['docs'][0]['descriptiveNonRepeating']['title']['content']
-        except:
-            pass
-
-        try:
-            artwork['external_url'] = response['response']['docs'][0]['descriptiveNonRepeating']['record_link']
-        except:
-            pass
-
-        try:
-            artwork['source'] = response['response']['docs'][0]['freetext']['dataSource'][0]['content']
-        except:
-            pass
-
-        try:
-            artwork['artist'] = response['response']['docs'][0]['freetext']['name'][0]['content']
-        except:
-            pass
-
-        try:
-            artwork['art_type'] = response['response']['docs'][0]['freetext']['objectType'][0]['content']
-        except:
-            pass
-
-        try:
-            artwork['description'] = response['response']['docs'][0]['freetext']['physicalDescription'][0]['content']
-        except:
-            pass
-
-        try:
-            artwork['date'] = response['response']['docs'][0]['freetext']['date'][0]['content']
-        except:
-            pass
+        artwork['image_url'] = access(response, ['response','docs',0,'descriptiveNonRepeating','online_media','media',0,'content'])
+        artwork['title'] = access(response, ['response', 'docs', 0, 'descriptiveNonRepeating', 'title', 'content'])
+        artwork['external_url'] = access(response, ['response', 'docs', 0, 'descriptiveNonRepeating', 'record_link'])
+        artwork['source'] = access(response, ['response', 'docs', 0, 'freetext', 'dataSource', 0, 'content'])
+        artwork['artist'] = access(response, ['response', 'docs', 0, 'freetext', 'name', 0, 'content'])
+        artwork['art_type'] = access(response, ['response', 'docs', 0, 'freetext', 'objectType', 0, 'content'])
+        artwork['description'] = access(response, ['response', 'docs', 0, 'freetext', 'physicalDescription', 0, 'content'])
+        artwork['date'] = access(response, ['response', 'docs', 0, 'freetext', 'date', 0, 'content'])
 
         try:
             artwork_model = self.save_artwork_details(**artwork)
