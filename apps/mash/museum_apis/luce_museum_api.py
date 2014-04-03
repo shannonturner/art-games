@@ -31,7 +31,7 @@ class LuceMuseumApi(BaseMuseumApi):
         self.parameters['start'] = artwork_id
 
         try:
-            response = requests.get(self.api_url, timeout=1, params=self.parameters, auth=HTTPBasicAuth(luce_username, luce_password)).json()
+            response = requests.get(self.api_url, timeout=0.1, params=self.parameters, auth=HTTPBasicAuth(luce_username, luce_password)).json()
         except Exception, err:
             return False # If an error occurs here, the API is most likely no longer accepting requests
 
