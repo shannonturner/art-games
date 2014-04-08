@@ -29,7 +29,7 @@ def get_artworks(**kwargs):
     if not both_apis[0] and not both_apis[1]:
         both_apis[0] = both_apis[1] = {
             'source': 'Service Currently Unavailable :(',
-            'title': 'The external museum services powering this site is not accepting our requests at this time.',
+            'title': 'The external museum services powering this site is not accepting our requests at this time.<br>This may be a temporary outage; <b>please load the page again!</b>',
         }
 
     # In the rare case of two images being identical, one_api still contains the right side's api to re-pull from
