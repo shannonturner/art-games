@@ -12,6 +12,14 @@ def get_artworks(**kwargs):
     else:
         available_apis = specific_apis
 
+    # Get total number of artworks available
+    total_artworks = 0
+
+    for key in available_apis.keys():
+        total_artworks += available_apis[key][1]
+
+    total_artworks_text = 'Currently sourcing {0:,} artworks from {1} museum APIs.'.format(total_artworks, len(available_apis))
+
     both_apis = []
 
     both_apis.append(random.choice(available_apis.keys()))
@@ -23,7 +31,7 @@ def get_artworks(**kwargs):
             if len(available_apis) < 2:
                 time.sleep(1)
 
-            both_apis[index], which_api = available_apis[one_api]().get_artwork()
+            both_apis[index], which_api = available_apis[one_api][0]().get_artwork()
 
     # This will only happen in the rare instances that all available APIs are down. 
     if not both_apis[0] and not both_apis[1]:
@@ -35,5 +43,7 @@ def get_artworks(**kwargs):
     # In the rare case of two images being identical, one_api still contains the right side's api to re-pull from
     while both_apis[0] == both_apis[1] and not both_apis[1]:
         both_apis[1] = available_apis[one_api]().get_artwork()
+
+    both_apis.append({'total_artworks': total_artworks_text})
 
     return both_apis

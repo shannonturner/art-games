@@ -123,9 +123,14 @@ class MashFavoritesView(TemplateView):
                 ranking[scores.index(record['spread']) + 1] = record
                 scores[scores.index(record['spread'])] = None # This spot is no longer available
 
+        plays = Vote.objects.count()
+        unique_artworks = Artwork.objects.count()
+
         context = {
             'ranking': ranking,
             'display_fields': display_fields,
+            'plays': plays,
+            'uniques': unique_artworks,
         }
 
         return render(request, self.template_name, context)

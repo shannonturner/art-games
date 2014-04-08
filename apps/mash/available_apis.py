@@ -4,7 +4,7 @@
 from apps.mash.museum_apis.victoria_albert_museum_api import VictoriaAlbertMuseumApi
 
 available_apis = {
-    # 'luce': LuceMuseumApi,
+    # 'luce': (LuceMuseumApi, 31114) # as of 2013 November
     # 'rijksmuseum': RijksMuseumApi,
-    'victoriaalbertmuseum': VictoriaAlbertMuseumApi,
+    'victoriaalbertmuseum': (VictoriaAlbertMuseumApi, 402101) # as of 2014 Apr 7
 }
