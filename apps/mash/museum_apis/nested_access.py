@@ -22,8 +22,6 @@ def access(dictionary, nested_keys):
 
     for index, key in enumerate(nested_keys):
 
-        print index, key
-
         try:
             if dictionary.has_key(key):
                 if nested_keys[index + 1:] != []:

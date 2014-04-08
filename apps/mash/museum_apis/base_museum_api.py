@@ -2,10 +2,6 @@ class BaseMuseumApi(object):
 
     " Generic Base class for an Art Museum's API "
 
-    def __init__(self, **kwargs):
-        random_boundaries = (0, 100) # Minimum and maximum for when choosing a random artwork
-        api_endpoint = ''
-
     def get_artwork(self, **kwargs):
         
         " Get one artwork and return details as a dictionary. Returns False if failed so a different artwork may be retrieved. "
