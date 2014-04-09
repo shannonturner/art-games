@@ -30,7 +30,7 @@ def get_artworks(**kwargs):
         if len(available_apis) == 1:
             time.sleep(1)
 
-        if len(available_apis > 1):
+        if len(available_apis) > 1:
             both_apis[index], which_api = available_apis[one_api][0]().get_artwork()
         else:
             both_apis[index] = False
