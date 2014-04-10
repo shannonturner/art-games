@@ -13,9 +13,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # Temporarily, the home page will be Art Mash
-    url(r'^$', MashView.as_view(), name='mash'),
+    url(r'^$', MashView.as_view(), name='home'),
 
-    url(r'^mash', MashView.as_view(), name='mash'),
-    url(r'^learn', LearnView.as_view(), name='learn'),
-    url(r'^favorites', MashFavoritesView.as_view(), name='favorites'),
+    url(r'^(?:art/)?mash$', MashView.as_view(), name='mash'),
+    url(r'^(?:art/)?learn$', LearnView.as_view(), name='learn'),
+    url(r'^(?:art/)?favorites$', MashFavoritesView.as_view(), name='favorites'),
 )
