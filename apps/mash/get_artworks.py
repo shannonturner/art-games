@@ -30,16 +30,16 @@ def get_artworks(**kwargs):
         if len(available_apis) == 1:
             time.sleep(1)
 
-        if len(available_apis) > 1:
+        if len(available_apis) > 0:
             both_apis[index], which_api = available_apis[one_api][0]().get_artwork()
-        else:
+        else: # entries from available_apis will be commented out if their API is down / turned off
             both_apis[index] = False
 
     # This will only happen in the rare instances that all available APIs are down. 
     if not both_apis[0] and not both_apis[1]:
         both_apis[0] = both_apis[1] = {
-            'source': 'Service Currently Unavailable :(',
-            'title': 'The external museum services powering this site is not accepting our requests at this time.<br>This may be a temporary outage; <b>please load the page again!</b>',
+            'source': 'Service Currently Unavailable :( This may be a temporary outage; please load the page again!',
+            'title': 'The external museum services powering this site is not accepting our requests at this time.',
         }
 
     # In the rare case of two images being identical, one_api still contains the right side's api to re-pull from
