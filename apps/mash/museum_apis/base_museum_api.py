@@ -16,7 +16,7 @@ class BaseMuseumApi(object):
 
         if exists:
             if len(exists) == 1:
-                return exists
+                return exists[0]
             else:
                 print "\n[INFO] Artwork may have a duplicate in the system? \n", exists, "\n"
                 return exists[0]

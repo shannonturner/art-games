@@ -14,7 +14,7 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
             'random': 1,
             'images': 1,
             'limit': 1,
-            'offset': random.randint(0, 1000000) # Better random than given by the API itself
+            'offset': random.randint(0, 10000) # Better random than given by the API itself
         }
 
     def get_artwork(self, **kwargs):
@@ -28,18 +28,25 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
             return False, 'victoriaalbertmuseum' # If an error occurs here, the API is most likely no longer accepting requests
 
         response = access(response, ['records'])
-        choice = random.randint(0, len(response))
 
         artwork = {}
 
+        available_choices = range(len(response))
+        image_url = None
+
+        while not image_url:
+            choice = random.choice(available_choices)
+            image_url = access(response, [choice, 'fields', 'primary_image_id'])
+            if image_url:
+                artwork['image_url'] = "http://media.vam.ac.uk/media/thira/collection_images/{0}/{1}.jpg".format(image_url[:6], image_url)
+                break
+            else:
+                available_choices.remove(choice)
+        else:
+            return False, 'victoriaalbertmuseum' # If none of the choices had a valid image
+
         artwork['from_api'] = 'Victoria and Albert Museum'
         artwork['external_id'] = access(response, [choice, 'pk'])
-
-        image_url = access(response, [choice, 'fields', 'primary_image_id'])
-        if image_url:
-            artwork['image_url'] = "http://media.vam.ac.uk/media/thira/collection_images/{0}/{1}.jpg".format(image_url[:6], image_url)
-        else:
-            return False, 'victoriaalbertmuseum'
 
         artwork['title'] = access(response, [choice, 'fields', 'title'])
 
@@ -48,6 +55,7 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
         # artwork['external_url'] = access(response, [])
         artwork['source'] = 'Victoria and Albert Museum'
+        artwork['museum'] = 'Victoria and Albert Museum'
         artwork['artist'] = access(response, [choice, 'fields', 'artist'])
         artwork['art_type'] = access(response, [choice, 'fields', 'object'])
         # artwork['description'] = access(response, [])
