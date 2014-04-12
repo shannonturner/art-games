@@ -1,6 +1,9 @@
-Art Games
+###Play the games at http://shannonvturner.com/art
 
-Art Mash: Discover art from museums around the world with one simple question: which one do you like better?
+**Art Mash**: Discover art from museums around the world with one simple question: which one do you like better?
+ * Also includes 'Learn about this art' feature
+ * View top favorites from everyone's playthroughs
+
 
 ---
 
