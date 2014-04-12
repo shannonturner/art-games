@@ -47,6 +47,8 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
         artwork['from_api'] = 'Victoria and Albert Museum'
         artwork['external_id'] = access(response, [choice, 'pk'])
+        if not artwork['external_id']:
+            return False, 'victoriaalbertmuseum'
 
         artwork['title'] = access(response, [choice, 'fields', 'title'])
 

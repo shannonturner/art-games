@@ -12,15 +12,22 @@ class BaseMuseumApi(object):
 
         from apps.mash.models import Artwork
 
-        exists = Artwork.objects.filter(**kwargs)
+        # exists = Artwork.objects.filter(**kwargs)
 
-        if exists:
-            if len(exists) == 1:
-                return exists[0]
+        external_id = kwargs.get('external_id')
+        from_api = kwargs.get('from_api')
+
+        if external_id and from_api:
+
+            exists = Artwork.objects.filter(external_id=external_id, from_api=from_api)
+
+            if exists:
+                if len(exists) == 1:
+                    return exists[0]
+                else:
+                    print "\n[INFO] Artwork may have a duplicate in the system? \n", exists, "\n"
+                    return exists[0]
             else:
-                print "\n[INFO] Artwork may have a duplicate in the system? \n", exists, "\n"
-                return exists[0]
-        else:
-            artwork = Artwork(**kwargs)
-            artwork.save()
-            return artwork
+                artwork = Artwork(**kwargs)
+                artwork.save()
+                return artwork
