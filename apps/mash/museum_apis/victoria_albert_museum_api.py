@@ -9,12 +9,19 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
         import random
 
+        # Weight lower offsets more heavily
+        random_maximum = []
+        for x in range(15, 0, -1):
+            random_maximum.extend(range(x))
+
+        random_maximum = random.choice(random_maximum) * 1000
+
         self.api_url = 'http://www.vam.ac.uk/api/json/museumobject/search'
         self.parameters = {
-            'random': 1,
+            # 'random': 1,
             'images': 1,
-            'limit': 1,
-            'offset': random.randint(0, 10000) # Better random than given by the API itself
+            'limit': 25,
+            'offset': random.randint(0, random_maximum) # Better random than given by the API itself
         }
 
     def get_artwork(self, **kwargs):
