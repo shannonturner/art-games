@@ -25,6 +25,8 @@ def get_artworks(**kwargs):
     both_apis.append(random.choice(available_apis.keys()))
     both_apis.append(random.choice(available_apis.keys()))
 
+    attempts = 0
+
     for index, one_api in enumerate(both_apis):
 
         if len(available_apis) == 1:
@@ -34,6 +36,14 @@ def get_artworks(**kwargs):
             both_apis[index], which_api = available_apis[one_api][0]().get_artwork()
         else: # entries from available_apis will be commented out if their API is down / turned off
             both_apis[index] = False
+
+        # If an API return failed and returned False, try again with a different API
+        if not both_apis[index] and len(available_apis) > 1:
+            attempts += 1
+            if attempts <= 3:
+                backup_available_apis = [backup for backup in available_apis.keys() if backup != which_api]
+                backup_api = random.choice(backup_available_apis)
+                both_apis[index], which_api = available_apis[backup_api][0]().get_artwork()
 
     # This will only happen in the rare instances that all available APIs are down. 
     if not both_apis[0] and not both_apis[1]:
