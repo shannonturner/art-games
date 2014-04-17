@@ -3,7 +3,8 @@
 **Art Mash**: Discover art from museums around the world with one simple question: which one do you like better?
  * Also includes 'Learn about this art' feature
  * View top favorites from everyone's playthroughs
-
+ * Keyboard shortcuts: press Z to vote for the artwork on the LEFT
+ * Keyboard shortcuts: press X to vote for the artwork on the RIGHT
 
 ---
 
