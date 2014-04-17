@@ -126,5 +126,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://shannonvturner.com/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Adds event listeners for Z and X -->
+    <script>
+
+    document.addEventListener('keydown', function(event) {
+        if(event.keyCode == 90) {
+            // Left was pressed (z)
+            $('#mash_left').submit();
+        }
+        else if(event.keyCode == 88) {
+            // Right was pressed (x)
+            $('#mash_right').submit();
+        }
+    });
+
+    </script>
+
   </body>
 </html>
