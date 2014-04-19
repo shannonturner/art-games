@@ -134,3 +134,21 @@ class MashFavoritesView(TemplateView):
         }
 
         return render(request, self.template_name, context)
+
+class MashNoVotesView(TemplateView):
+
+    template_name = 'mash/novotes.html'
+
+    def get(self, request, **kwargs):
+
+        import random
+
+        no_votes = Artwork.objects.all().exclude(won__id__isnull=False).exclude(lost__id__isnull=False)
+        sample_no_votes = random.sample(no_votes, 6 if len(no_votes) >= 6 else len(no_votes))
+
+        context = {
+            'total': len(no_votes),
+            'artwork': sample_no_votes,
+        }
+
+        return render(request, self.template_name, context)

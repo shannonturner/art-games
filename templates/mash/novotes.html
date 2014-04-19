@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{# Art Games Template: No Votes #}
+
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover art from museums around the world">
+
+    <!-- Bootstrap -->
+    <link href="http://shannonvturner.com/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title>Artworks with no votes (yet)</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Quintessential' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="http://shannonvturner.com/css/art_games.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-49936574-1', 'shannonvturner.com');
+      ga('send', 'pageview');
+
+    </script>
+
+
+  </head>
+
+<body>
+
+<div class="row">
+
+<h2>Artworks with no votes</h2>
+<h4>Click an artwork to learn more</h4>
+<h4>Then go <a href="/art/mash">play again</a></h4>
+
+    {% for art in artwork %}
+
+      {% cycle '<div class="row">' '' '' %}
+
+      <div class="col-lg-4">
+
+      <a href="learn?id1={{ art.id }}" target="_blank">
+          <img src="{{ art.image_url }}" alt="{{ art.title }}" title="{{ art.title }}" class="img-responsive">
+      </a>
+
+      </div>
+
+      {% cycle '' '' '</div>' %}
+
+    {% endfor %}
+
+</div>
+
+<div class="row">
+
+    <h4>There are {{ total }} artworks with no votes. That's okay, abstaining is a kind of voting too.</h4>
+    <h4><a href="/art/novotes">View another sampling of artworks with no votes</a></h4>
+
+</div>
+
+<div class="row">
+
+    <div class="row col-lg-4 col-lg-offset-4">
+
+        <h3><a href="/art/mash">Discover art</a></h3>
+        <h3><a href="/art">Back to home</a></h3>
+
+    </div>
+
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://shannonvturner.com/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
