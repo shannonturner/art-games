@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     url(r'^(?:art/)?learn$', LearnView.as_view(), name='learn'),
     url(r'^(?:art/)?favorites$', MashFavoritesView.as_view(), name='favorites'),
     url(r'^(?:art/)?novotes$', MashNoVotesView.as_view(), name='novotes'),
+    url(r'^(?:art/)?untitled$', UntitledView.as_view(), name='untitled'),
 )
