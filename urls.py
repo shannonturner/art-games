@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from apps.mash.views import MashView, LearnView, MashFavoritesView, MashNoVotesView
+from apps.mash.views import MashView, LearnView, MashFavoritesView, MashNoVotesView, UnlockedView
 from apps.untitled.views import UntitledView
 
 urlpatterns = patterns('',
@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^(?:art/)?favorites$', MashFavoritesView.as_view(), name='favorites'),
     url(r'^(?:art/)?novotes$', MashNoVotesView.as_view(), name='novotes'),
     url(r'^(?:art/)?untitled$', UntitledView.as_view(), name='untitled'),
+    url(r'^(?:art/)?unlocked$', UnlockedView.as_view(), name='unlocked'),
 )

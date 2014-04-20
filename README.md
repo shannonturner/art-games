@@ -6,6 +6,15 @@
  * Keyboard shortcuts: press Z to vote for the artwork on the LEFT
  * Keyboard shortcuts: press X to vote for the artwork on the RIGHT
 
+Each time you play **Art Mash**, new artworks become available for all of the other games.
+
+**Release Schedule**
+1000 plays: See how many artworks have been unlocked
+1500 plays: New game, 'Untitled'
+2500 plays: Additional art museum API
+...
+10000 plays: New game, 'Curator'
+
 ---
 
 I originally developed the Art Mash at the Smithsonian American Art Museum Luce Foundation Center Hackathon in November 2013

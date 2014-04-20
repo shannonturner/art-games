@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{# Art Games Template: Home page #}
+
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover art from museums around the world by playing games!">
+
+    <!-- Bootstrap -->
+    <link href="http://shannonvturner.com/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title>Art games by shannonturner</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Quintessential' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="http://shannonvturner.com/css/art_games.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-49936574-1', 'shannonvturner.com');
+      ga('send', 'pageview');
+
+    </script>
+
+
+  </head>
+
+<body>
+
+<div class="row">
+
+  <h2>Each time you play <a href="/art/mash" style="padding: 0;">Art Mash</a>, you unlock artworks that become available for all of the other art games.</h2>
+
+  {% for api_id, api in apis.items %}
+
+    <h3>{{ api.name }}</h4>
+    <h4>{{ api.progress }} out of {{ api.valuemax }} artworks unlocked</h6>
+
+    <div class="progress" style="padding: 0; width:60%;">
+
+        <div class="progress-bar {{ api.color }}" role="progressbar" aria-valuenow="{{ api.progress }}" aria-valuemin="{{ api.valuemin }}" aria-valuemax="{{ api.valuemax }}" style="text-align: center; width: {{ api.current }}%">
+        </div>
+
+    </div>
+
+    <br>
+
+  {% endfor %}
+
+</div>
+
+<div class="row">
+
+    <div class="row col-lg-4 col-lg-offset-4">
+
+        <h3><a href="/art/mash">Unlock more artworks</a></h3>
+
+    </div>
+
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://shannonvturner.com/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

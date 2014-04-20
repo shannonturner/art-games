@@ -152,3 +152,64 @@ class MashNoVotesView(TemplateView):
         }
 
         return render(request, self.template_name, context)
+
+class UnlockedView(TemplateView):
+
+    template_name = 'mash/unlocked.html'
+
+    def get(self, request, **kwargs):
+
+        context = {}
+
+        from apps.mash.available_apis import available_apis as apis
+
+        for api_code, api_info in apis.items():
+
+            print api_code, api_info
+
+            if api_code == 'luce':
+                context[api_code] = {
+                    'name': 'Smithsonian American Art Museum Luce Center',
+                    'from_api': 'luce',
+                }
+            elif api_code == 'brooklyn':
+                context[api_code] = {
+                    'name': 'Brooklyn Museum',
+                    'from_api': 'brooklyn',
+                }
+            elif api_code == 'victoriaalbertmuseum':
+                context[api_code] = {
+                    'name': 'Victoria and Albert Museum',
+                    'from_api': 'Victoria and Albert Museum',
+                }
+            elif api_code == 'waltersmuseum':
+                context[api_code] = {
+                    'name': 'Walters Museum',
+                    'from_api': 'Walters Museum',
+                }
+
+            context[api_code]['valuemin'] = 0
+            context[api_code]['valuemax'] = api_info[1]
+            context[api_code]['progress'] = len(Artwork.objects.filter(from_api=context[api_code]['from_api']))
+
+            context[api_code]['current'] = (float(context[api_code]['progress']) / float(context[api_code]['valuemax'])) * 100
+
+            # Color progression of the progress bars
+            if context[api_code]['current'] <= 20:
+                context[api_code]['color'] = 'progress-bar-danger'
+                if context[api_code]['current'] <= 1:
+                    context[api_code]['current'] = 1
+            elif context[api_code]['current'] <= 40:
+                context[api_code]['color'] = 'progress-bar-warning'
+            elif context[api_code]['current'] <= 60:
+                context[api_code]['color'] = 'progress-bar-info'
+            elif context[api_code]['current'] <= 80:
+                context[api_code]['color'] = 'progress-bar'
+            else:
+                context[api_code]['color'] = 'progress-bar-success'
+
+        context = {
+            'apis': context
+        }
+
+        return render(request, self.template_name, context)
