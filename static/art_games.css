@@ -1,0 +1,35 @@
+* {
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    font-family: 'Quintessential', cursive !important;
+}
+
+.mash_button {
+    border: none; 
+    background-color: transparent;
+}
+
+.ranking_image {
+    max-width: 50%;
+}
+
+.ranking_item {
+    margin-top: 50%;
+    margin-bottom: 50%;
+}
+
+#img_left {
+    max-width: 100%;
+    display: inline;
+}
+
+#img_right {
+    max-width: 100%; 
+    display: inline;
+}
+
+#twitter-widget-0 {
+    padding: 0 !important;
+}

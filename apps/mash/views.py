@@ -4,6 +4,16 @@ from django.template import RequestContext
 
 from apps.mash.models import Artwork, Vote
 
+class HomeView(TemplateView):
+
+    template_name = 'home.html'
+
+    def get(self, request, **kwargs):
+
+        context = {}
+
+        return render(request, self.template_name, context)
+
 class MashView(TemplateView):
 
     template_name = 'mash/mash.html'
