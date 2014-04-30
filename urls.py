@@ -13,7 +13,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    # Temporarily, the home page will be Art Mash
     url(r'^(?:art/)?$', HomeView.as_view(), name='home'),
 
     url(r'^(?:art/)?mash$', MashView.as_view(), name='mash'),

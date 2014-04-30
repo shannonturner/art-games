@@ -10,7 +10,7 @@ Each time you play **Art Mash**, new artworks become available for all of the ot
 
 **Release Schedule**
 * ~~1000 plays: See how many artworks have been unlocked~~
-* 1500 plays: New game, 'Untitled'
+* ~~1500 plays: New game, 'Untitled'~~
 * 2500 plays: Additional art museum API
 * 3500 plays: New game, 'Quiz'
 * ...
