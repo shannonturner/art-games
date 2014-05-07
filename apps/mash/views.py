@@ -121,7 +121,7 @@ class MashFavoritesView(TemplateView):
             spread = record['won__id__count'] - record['lost__id__count']
             records_by_id[index]['spread'] = spread * spread if spread > 0 else 0
 
-            scores.append(spread * spread)
+            scores.append(records_by_id[index]['spread'])
 
         scores = sorted(scores)[-10:] # Keep only highest ten scores
         scores.reverse()
