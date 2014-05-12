@@ -135,12 +135,12 @@
     <script>
 
     document.addEventListener('keydown', function(event) {
-        if(event.keyCode == 90) {
-            // Left was pressed (z)
+        if(event.keyCode == 90 || event.keyCode == 37 || event.keyCode == 65) {
+            // Left was pressed (z, left arrow, a)
             $('#mash_left').submit();
         }
-        else if(event.keyCode == 88) {
-            // Right was pressed (x)
+        else if(event.keyCode == 88 || event.keyCode == 39 || event.keyCode == 68) {
+            // Right was pressed (x, right arrow, d)
             $('#mash_right').submit();
         }
     });
