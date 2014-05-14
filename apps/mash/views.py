@@ -223,3 +223,100 @@ class UnlockedView(TemplateView):
         }
 
         return render(request, self.template_name, context)
+
+class MashRankingView(TemplateView):
+
+    template_name = 'mash/ranking.html'
+
+    def get(self, request, **kwargs):
+
+        context = self.get_context_data()
+
+        return render(request, self.template_name, context)
+
+    @staticmethod
+    def get_children(ranking, identifier, mashups, wins=True):
+
+        """
+            Assumes wins are on the left side, losses on the right side.
+        """
+
+        if wins:
+            position = 0
+            opposite = 1
+            level = 'above'
+        else:
+            position = 1
+            opposite = 0
+            level = 'below'
+
+        current_length = len(ranking[identifier][level])
+
+        for mashup in mashups:
+            if mashup[position] == identifier:
+                ranking[identifier][level].append(mashup[opposite])
+
+            if mashup[position] in ranking[identifier][level]:
+                ranking[identifier][level].append(mashup[opposite])
+
+        ranking[identifier][level] = list(set(ranking[identifier][level]))
+
+        if len(ranking[identifier][level]) != current_length:
+            ranking[identifier] = MashRankingView.get_children(ranking, identifier, mashups, wins)
+
+        return ranking[identifier]
+
+    def get_context_data(self, **kwargs):
+
+        mashups = []
+        all_ids = []
+
+        votes = Vote.objects.all()
+
+        for vote in votes:
+            mashups.append((vote.won_id, vote.lost_id))
+            all_ids.extend([vote.won_id, vote.lost_id])
+
+        all_ids = list(set(all_ids))
+
+        # DO NOT USE .fromkeys() to build this dictionary!
+        # If you do, all of the 'above' lists and 'below' lists will have the same IDs
+        # Which means that appending to one 'above' list appends to EVERY 'above' list.
+        # Using a dictionary comprehension will instantiate a new list for each one_id
+        ranking = {one_id: {'above': [], 'below': []} for one_id in all_ids}
+
+        for key in ranking.iterkeys():
+            ranking[key] = self.get_children(ranking, key, mashups)
+            ranking[key] = self.get_children(ranking, key, mashups, False)
+
+        high_score = [0, 0] # score, id
+
+        for key,value in ranking.iteritems():
+            if (len(value['above']) - len(value['below'])) > high_score[0]:
+                clear_winner = True
+
+                high_score = [(len(value['above']) - len(value['below'])), key]
+                wins = len(value['above'])
+                losses = len(value['below'])
+                above = value['above']
+                below = value['below']
+            elif (len(value['above']) - len(value['below'])) == high_score[0]:
+                clear_winner = False
+
+        plays = len(Vote.objects.all())
+        uniques = len(Artwork.objects.all())
+
+        rank = {
+            'score': high_score[0],
+            'art': Artwork.objects.get(id=high_score[1]),
+
+            'wins': wins,
+            'losses': losses,
+            'above': above,
+            'clear_winner': clear_winner,
+
+            'plays': plays,
+            'uniques': uniques,
+        }
+
+        return rank
