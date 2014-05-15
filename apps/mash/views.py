@@ -118,8 +118,8 @@ class MashFavoritesView(TemplateView):
         ranking = {}
 
         for index, record in enumerate(records_by_id):
-            spread = record['won__id__count'] - record['lost__id__count']
-            records_by_id[index]['spread'] = spread * spread if spread > 0 else 0
+            spread = record['won__id__count'] ** 2 - record['lost__id__count'] ** 2
+            records_by_id[index]['spread'] = spread if spread > 0 else 0
 
             scores.append(records_by_id[index]['spread'])
 
