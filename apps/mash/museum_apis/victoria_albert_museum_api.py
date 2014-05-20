@@ -11,7 +11,7 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
         # Weight lower offsets more heavily
         random_maximum = []
-        for x in range(15, 0, -1):
+        for x in range(30, 0, -1):
             random_maximum.extend(range(x))
 
         random_maximum = random.choice(random_maximum) * 1000
@@ -20,7 +20,7 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
         self.parameters = {
             # 'random': 1,
             'images': 1,
-            'limit': 25,
+            'limit': 45,
             'offset': random.randint(0, random_maximum) # Better random than given by the API itself
         }
 
