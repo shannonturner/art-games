@@ -2,12 +2,11 @@
 
 from apps.mash.museum_apis.base_museum_api import BaseMuseumApi
 from nested_access import access
+import random
 
 class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
     def __init__(self, **kwargs):
-
-        import random
 
         # Weight lower offsets more heavily
         random_maximum = []
@@ -18,15 +17,19 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
         self.api_url = 'http://www.vam.ac.uk/api/json/museumobject/search'
         self.parameters = {
-            # 'random': 1,
             'images': 1,
             'limit': 45,
             'offset': random.randint(0, random_maximum) # Better random than given by the API itself
         }
 
+        # Attempts to solve https://github.com/shannonturner/art-games/issues/11:
+
+        random_flag = random.choice((False, False, False, False, True)) # 20% chance
+        if random_flag:
+            self.parameters['random'] = 1
+
     def get_artwork(self, **kwargs):
 
-        import random
         import requests
 
         try:
