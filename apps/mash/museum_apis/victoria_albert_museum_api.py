@@ -28,6 +28,18 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
         if random_flag:
             self.parameters['random'] = 1
 
+        date_flag = random.choice((False, True, None, None, None)) # 40% chance of using before or after
+        if date_flag is None:
+            pass # The 'before' / 'after' parameters will not be used this time.
+        elif date_flag:
+            after_dates = (-3000, -2000, -1000, 0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900)
+            after_date = random.choice(after_dates)
+            self.parameters['after'] = after_date
+        elif not date_flag:
+            before_dates = (2100, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 0)
+            before_date = random.choice(before_dates)
+            self.parameters['before'] = before_date
+
     def get_artwork(self, **kwargs):
 
         import requests
