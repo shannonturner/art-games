@@ -8,18 +8,10 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
     def __init__(self, **kwargs):
 
-        # Weight lower offsets more heavily
-        random_maximum = []
-        for x in range(30, 0, -1):
-            random_maximum.extend(range(x))
-
-        random_maximum = random.choice(random_maximum) * 1000
-
         self.api_url = 'http://www.vam.ac.uk/api/json/museumobject/search'
         self.parameters = {
             'images': 1,
             'limit': 45,
-            'offset': random.randint(0, random_maximum) # Better random than given by the API itself
         }
 
         # Attempts to solve https://github.com/shannonturner/art-games/issues/11:
@@ -39,6 +31,18 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
             before_dates = (2100, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 0)
             before_date = random.choice(before_dates)
             self.parameters['before'] = before_date
+
+        # Make offset happen 50% of the time
+        offset_flag = random.choice((True, False))
+        if offset_flag:
+            # Weight lower offsets more heavily
+            random_maximum = []
+            for x in range(30, 0, -1):
+                random_maximum.extend(range(x))
+
+            random_maximum = random.choice(random_maximum) * 1000
+
+            self.parameters['offset'] = random.randint(0, random_maximum)
 
     def get_artwork(self, **kwargs):
 
