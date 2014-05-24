@@ -44,6 +44,14 @@ class VictoriaAlbertMuseumApi(BaseMuseumApi):
 
             self.parameters['offset'] = random.randint(0, random_maximum)
 
+        # Keep a close eye on the letter flag block.
+        # This might do more harm than good since it always returns the same group of artworks
+        # Don't be afraid to comment this part out
+        letter_flag = random.choice((False, False, False, False, False, False, False, False, False, True))
+        # 10% chance, plus one of the other flags must also be set.
+        if letter_flag and any((offset_flag, date_flag, random_flag)):
+            self.parameters['q'] = random.choice('bcdefghijklmnopqrstuvwy')
+
     def get_artwork(self, **kwargs):
 
         import requests
