@@ -62,7 +62,7 @@
             <h4>Record: {{ wins }} - {{ losses }}</h4>
 
             <h4>This artwork won against</h4>
-            {% for one in above %} <a href="/art/learn?id1={{ one.id }}">{{ one.title }}</a> {% endfor %}
+            {% for one in above %} <a href="/art/learn?id1={{ one }}">{{ one }}</a> {% endfor %}
 
         {% else %}
 
