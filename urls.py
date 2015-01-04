@@ -21,5 +21,5 @@ urlpatterns = patterns('',
     url(r'^(?:art/)?novotes$', MashNoVotesView.as_view(), name='novotes'),
     url(r'^(?:art/)?untitled$', UntitledView.as_view(), name='untitled'),
     url(r'^(?:art/)?unlocked$', UnlockedView.as_view(), name='unlocked'),
-    url(r'^(?:art/)?ranking$', MashRankingView.as_view(), name='ranking'),
+    # url(r'^(?:art/)?ranking$', MashRankingView.as_view(), name='ranking'),
 )
