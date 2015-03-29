@@ -154,10 +154,10 @@ class MashNoVotesView(TemplateView):
         import random
 
         no_votes = Artwork.objects.all().exclude(won__id__isnull=False).exclude(lost__id__isnull=False)
-        sample_no_votes = random.sample(no_votes, 6 if len(no_votes) >= 6 else len(no_votes))
+        sample_no_votes = random.sample(no_votes, 6 if no_votes.count() >= 6 else no_votes.count())
 
         context = {
-            'total': len(no_votes),
+            'total': no_votes.count(),
             'artwork': sample_no_votes,
         }
 
@@ -200,7 +200,7 @@ class UnlockedView(TemplateView):
 
             context[api_code]['valuemin'] = 0
             context[api_code]['valuemax'] = api_info[1]
-            context[api_code]['progress'] = len(Artwork.objects.filter(from_api=context[api_code]['from_api']))
+            context[api_code]['progress'] = Artwork.objects.filter(from_api=context[api_code]['from_api']).count()
 
             context[api_code]['current'] = (float(context[api_code]['progress']) / float(context[api_code]['valuemax'])) * 100
 
@@ -231,6 +231,7 @@ class MashRankingView(TemplateView):
     def get(self, request, **kwargs):
 
         context = self.get_context_data()
+        print context
 
         return render(request, self.template_name, context)
 
@@ -303,8 +304,8 @@ class MashRankingView(TemplateView):
             elif (len(value['above']) - len(value['below'])) == high_score[0]:
                 clear_winner = False
 
-        plays = len(Vote.objects.all())
-        uniques = len(Artwork.objects.all())
+        plays = Vote.objects.count()
+        uniques = Artwork.objects.count()
 
         rank = {
             'score': high_score[0],
