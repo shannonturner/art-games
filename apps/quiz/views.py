@@ -98,7 +98,7 @@ class QuizHighScoreView(TemplateView):
         kwargs['quiz_type'] = quiz_type
         request.session['score'] = 0
 
-        return HttpResponseRedirect(reverse("highscore"))
+        return HttpResponseRedirect('/art/highscore')
 
     def get_context_data(self, **kwargs):
 
