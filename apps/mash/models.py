@@ -26,6 +26,9 @@ class Artwork(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
+    def __unicode__(self):
+        return '{0}'.format(self.title)
+
 class Vote(models.Model):
 
     " Each time two artworks are lined up side by side, both the winning and losing artwork will be saved. "
@@ -36,4 +39,7 @@ class Vote(models.Model):
     # Auto-generated timestamps
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+
+    def __unicode__(self):
+        return 'Artwork {0} won over Artwork {1}'.format(won, lost)
 

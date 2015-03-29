@@ -5,6 +5,7 @@ admin.autodiscover()
 
 from apps.mash.views import HomeView, MashView, LearnView, MashFavoritesView, MashNoVotesView, UnlockedView, MashRankingView
 from apps.untitled.views import UntitledView
+from apps.quiz.views import QuizView, QuizChoiceView, QuizHighScoreView
 
 urlpatterns = patterns('',
     # Examples:
@@ -21,5 +22,7 @@ urlpatterns = patterns('',
     url(r'^(?:art/)?novotes$', MashNoVotesView.as_view(), name='novotes'),
     url(r'^(?:art/)?untitled$', UntitledView.as_view(), name='untitled'),
     url(r'^(?:art/)?unlocked$', UnlockedView.as_view(), name='unlocked'),
-    # url(r'^(?:art/)?ranking$', MashRankingView.as_view(), name='ranking'),
+    url(r'^(?:art/)?(?P<game_type>(quiz|twotruthsonelie))$', QuizView.as_view(), name='quiz'),
+    url(r'^(?:art/)?quizzes$', QuizChoiceView.as_view(), name='quiz_choice'),
+    url(r'^(?:art/)?highscore$', QuizHighScoreView.as_view(), name='highscore')
 )

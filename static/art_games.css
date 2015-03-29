@@ -33,3 +33,31 @@
 #twitter-widget-0 {
     padding: 0 !important;
 }
+
+.quiz-button {
+    padding: 1em;
+    font-weight: bold;
+    background: #add;
+    width: 100%;
+}
+
+.outcome {
+    padding: 1em;
+    color: white;
+}
+
+.incorrect {
+    background: #c00;
+}
+
+.correct {
+    background: #0c0;
+}
+
+.so-you-know {
+    background: #00c;
+}
+
+.row-odd {
+    background: #add;
+}
