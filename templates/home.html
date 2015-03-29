@@ -21,6 +21,8 @@
 
     <title>Art games by shannonturner</title>
 
+    {% include "meta.html" %}
+
     <link href='http://fonts.googleapis.com/css?family=Quintessential' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="http://shannonvturner.com/css/art_games.css">
 
@@ -42,18 +44,31 @@
 
 <div class="row">
 
-  <div class="jumbotron" style="width: 65%; padding: 5px;">
+  <!-- <div class="jumbotron" style="width: 80%; padding: 5px;"> -->
 
-  <h2><a href="/art/mash">Art Mash</a></h2>
+    <div class="col-lg-6">
+      <h2><a href="/art/mash">Art Mash</a></h2>
 
-  <a href="/art/mash">
-    <img src="http://shannonvturner.com/images/mash.png" class="img-responsive" alt="Discover art" title="Discover art" style="padding: 0;">
-  </a>
+      <a href="/art/mash">
+        <img src="http://shannonvturner.com/images/mash.png" class="img-responsive" alt="Discover art" title="Discover art" style="padding: 0;">
+      </a>
 
-  <h3>Discover art from museums around the world with one simple question:</h3>
-  <h3>Which one do you like better?</h3>
+      <h3>Discover art from museums around the world with one simple question:</h3>
+      <h3>Which one do you like better?</h3>
+    </div>
 
-  </div>
+    <div class="col-lg-6">
+      <h2><a href="/art/quiz">Art Quiz</a></h2>
+
+      <a href="/art/quiz">
+        <img src="http://shannonvturner.com/images/art_quiz.png" class="img-responsive" alt="Art Quiz" title="Art Quiz" style="padding: 0;">
+      </a>
+
+      <h3>How well do you know your art?</h3>
+      <h3>Get the high score and bragging rights!</h3>
+    </div>
+
+  <!-- </div> -->
 
 </div>
 
@@ -133,14 +148,22 @@
 
     <div class="col-lg-4 col-lg-offset-4">
 
+    <!-- Facebook button -->
+    <div class="fb-like" data-href="http://shannonvturner.com/art" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="top: -5px; margin-right: 10px;"></div>
+
     <a href="https://twitter.com/share" class="twitter-share-button twitter-widget-0" data-via="svt827" data-hashtags="artgames">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <!-- G+ button -->
+    <div class="g-plusone" data-size="medium" data-width="300"></div>
 
     <h4>All of the art games are open-source. The code lives here: <a href="https://github.com/shannonturner/art-games" target="_blank">https://github.com/shannonturner/art-games</a>
 
     </div>
 
 </div>
+
+    {% include "social.html" %}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
