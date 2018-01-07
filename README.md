@@ -1,4 +1,6 @@
-###Play the games at http://shannonvturner.com/art
+### Art Games
+
+### Play the games at [https://shannonvturner.com/art](https://shannonvturner.com/art)
 
 **Art Mash**: Discover art from museums around the world with one simple question: which one do you like better?
  * Also includes 'Learn about this art' feature
@@ -7,14 +9,6 @@
  * Keyboard shortcuts: press X to vote for the artwork on the RIGHT
 
 Each time you play **Art Mash**, new artworks become available for all of the other games.
-
-**Release Schedule**
-* ~~1000 plays: See how many artworks have been unlocked~~
-* ~~1500 plays: New game, 'Untitled'~~
-* 2500 plays: Additional art museum API
-* 3500 plays: New game, 'Quiz'
-* ...
-* 10000 plays: New game, 'Curator'
 
 **Untitled**: These artworks are untitled, but you can think of a better title than that ...
 * Name untitled artworks and share them with your friends over Twitter
